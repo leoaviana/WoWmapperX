@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WoWmapperX.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:pages="clr-namespace:WoWmapperX.SettingsPanels;assembly=WoWmapperX"
+        xmlns:maincomp="clr-namespace:WoWmapperX.AvaloniaViews;assembly=WoWmapperX"
+        xmlns:settings="clr-namespace:WoWmapperX.SettingsPanels"
+        mc:Ignorable="d" Width="300" Height="530" d:DesignWidth="300" d:DesignHeight="500"
+        x:Class="WoWmapperX.Views.MainWindow" 
+        Icon="/Resources/wowmapper.ico"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        CanResize="False"
+        Title="WoWmapperX"> 
+  
+  <DockPanel HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Name="ContentWrapper">
+    <maincomp:TitleBar x:Name="TitleBar" IsSeamless="False"></maincomp:TitleBar>
+    <Grid>
+      <maincomp:KeybindDialog x:Name="_keybindDialogController" IsVisible="False" ZIndex="1"/>
+      <Border HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+        <Carousel Name="PageCarousel"
+                  HorizontalAlignment="Stretch">
+          <Carousel.Styles>
+            <Style Selector="Carousel#PageCarousel:not(.notransitions)">
+              <Setter Property="PageTransition">
+                <PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
+                           SlideInEasing="CircularEaseOut" />
+              </Setter>
+            </Style>
+          </Carousel.Styles>
+          <maincomp:MainPage />
+          <pages:SettingsPanel/>
+        </Carousel>
+      </Border>
+    </Grid>
+  </DockPanel> 
+</Window>

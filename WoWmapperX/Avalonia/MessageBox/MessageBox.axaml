@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:maincomp="clr-namespace:WoWmapperX.AvaloniaViews;assembly=WoWmapperX"
+        x:Class="WoWmapperX.AvaloniaImpl.MessageBox"
+        Width="400" Height="200"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        CanResize="False">
+     <DockPanel HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Name="ContentWrapper">
+            <maincomp:TitleBar x:Name="TitleBar" IsSeamless="False"></maincomp:TitleBar> 
+	    <Grid RowDefinitions="Auto,Auto,*">
+	    	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+	    		<TextBlock Name="MessageText" TextWrapping="Wrap" MaxWidth="400" Margin="10"/>
+	    	</StackPanel>
+	    	<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+	    		<Button Name="OkButton" Content="OK" Click="OnOkClick" Margin="5" IsVisible="False"/>
+	    		<Button Name="YesButton" Content="Yes" Click="OnYesClick" Margin="5" IsVisible="False"/>
+	    		<Button Name="NoButton" Content="No" Click="OnNoClick" Margin="5" IsVisible="False"/>
+	    		<Button Name="CancelButton" Content="Cancel" Click="OnCancelClick" Margin="5" IsVisible="False"/>
+		    </StackPanel>
+	    </Grid>
+    </DockPanel>
+</Window>

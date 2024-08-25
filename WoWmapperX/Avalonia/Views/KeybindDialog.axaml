@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="500"
+             Background="Transparent"
+             x:Class="WoWmapperX.AvaloniaViews.KeybindDialog">
+
+<Grid>
+  <Grid x:Name="bgLayer" Background="White"/>
+  <Grid x:Name="DialogLayer" Width="300" Height="200" Background="Black">
+    <TextBlock x:Name="ContentHeader" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="20" FontSize="18" Text="HEADER"/>
+    <TextBlock x:Name="ContentText" TextWrapping="Wrap" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."></TextBlock>
+    <Button x:Name="ActionButton" 
+            Width="80"
+            Margin="10"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Content="Cancel"
+            Click="ActionButton_Click"/>
+  </Grid>
+</Grid> 
+</UserControl>

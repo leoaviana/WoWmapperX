@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="WoWmapperX.SettingsPanels.SettingsOverlay"             
+             xmlns:properties="clr-namespace:WoWmapperX.AvaloniaImpl"
+             d:DesignHeight="400"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+  <Grid Margin="5">
+    <StackPanel Margin="5,0">
+      <TextBlock FontSize="16" Text="Overlay" />
+      <Separator Height="5" />
+      <TextBlock Name="FeatureText" Margin="5,0,5,5"
+                 FontWeight="SemiBold"
+                 TextWrapping="Wrap">
+        This feature will only work when playing in windowed and windowed fullscreen modes.
+      </TextBlock>
+      <CheckBox Name="CheckEnableOverlay"
+                Margin="5" 
+                Content="Enable WoWmapper in-game overlay"
+                Checked="CheckEnableOverlay_OnChecked"
+                IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                          Path=EnableOverlay}"
+                Unchecked="CheckEnableOverlay_OnUnchecked"/>
+      <Separator Height="5" />
+      <TabControl IsEnabled="{Binding ElementName=CheckEnableOverlay, Path=IsChecked}">
+        <TabItem Header="Notifications">
+          <StackPanel>
+            <Grid>
+              <TextBlock Margin="5,5" Text="Position" />
+              <ComboBox Name="ComboVertical"
+                        Width="80"
+                        Margin="85,0"
+                        HorizontalAlignment="Right"
+                        SelectedIndex="{Binding Source={x:Static properties:AppSettings.Default},
+                                                              Path=NotificationV}"
+                        SelectionChanged="Alignment_Changed">
+                <ComboBoxItem Name="PopupTop">Top</ComboBoxItem>
+                <ComboBoxItem Name="PopupMiddle">Middle</ComboBoxItem>
+                <ComboBoxItem Name="PopupBottom">Bottom</ComboBoxItem>
+              </ComboBox>
+              <ComboBox Name="ComboHorizontal"
+                        Width="80"
+                        HorizontalAlignment="Right"
+                        SelectedIndex="{Binding Source={x:Static properties:AppSettings.Default},
+                                                              Path=NotificationH}"
+                        SelectionChanged="Alignment_Changed">
+                <ComboBoxItem Name="PopupLeft">Left</ComboBoxItem>
+                <ComboBoxItem Name="PopupCenter">Center</ComboBoxItem>
+                <ComboBoxItem Name="PopupRight">Right</ComboBoxItem>
+              </ComboBox>
+            </Grid>
+            <StackPanel Margin="5,10">
+              <CheckBox Margin="0,5"
+                        Content="Notify on controller connect/disconnect"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=EnableOverlayConnection}" />
+              <CheckBox Margin="0,5"
+                        Content="Notify on low battery"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=EnableOverlayBattery}" />
+            </StackPanel>
+            <Button Margin="5" 
+                    Click="TestNotification_Click"
+                    Content="Show Test Notification" />
+          </StackPanel>
+        </TabItem>
+      </TabControl>
+    </StackPanel>
+  </Grid>
+</UserControl>

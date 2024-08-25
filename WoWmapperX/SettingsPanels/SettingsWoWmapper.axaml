@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="WoWmapperX.SettingsPanels.SettingsWoWmapper"
+             xmlns:p="clr-namespace:WoWmapperX.AvaloniaImpl"
+             xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
+             d:DesignHeight="421"
+             d:DesignWidth="313"
+             mc:Ignorable="d">
+  <Grid Margin="5">
+    <StackPanel Margin="5,0">
+      <TextBlock FontSize="16" Text="Application Style" />
+      <Separator Margin="0,5" />
+      <Grid Margin="0,0,0,5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition />
+          <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+          <TextBlock Margin="5,0" Text="Theme" />
+          <ComboBox Name="ComboTheme"
+                    Margin="5"
+                    SelectionChanged="ComboTheme_OnSelectionChanged">
+          </ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+          <TextBlock Margin="5,0" Text="Accent" />
+          <ComboBox Name="ComboAccent"
+                    Margin="5"
+                    SelectionChanged="ComboTheme_OnSelectionChanged">
+          </ComboBox>
+        </StackPanel>
+      </Grid>
+
+
+      <TextBlock FontSize="16" Text="Settings" />
+      <Separator Margin="0,5" />
+      <CheckBox Name="CheckExportBindings"
+                Margin="5"
+                Checked="CheckExportBindings_OnChecked"
+                Content="Automatically sync settings to ConsolePort"
+                IsChecked="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=ExportBindings}"
+                Unchecked="CheckExportBindings_OnChecked" />
+      <CheckBox Name="CheckRunInBackground"
+                Margin="5"
+                Content="Close WoWmapper to the notification icon"
+                IsChecked="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=RunInBackground}" />
+      <CheckBox Name="CheckHideAtStartup"
+                Margin="5"
+                Content="Hide application window at startup"
+                IsChecked="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=HideAtStartup}" />
+      <CheckBox Name="CheckEnableLogging"
+                Margin="5"
+                Content="Output log file to WoWmapper folder"
+                IsChecked="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=EnableLogging}" />
+      <CheckBox Name="CheckAutoUpdate"
+                Margin="5"
+                Content="Automatically download and install updates"
+                IsChecked="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=AutoUpdate}"
+                IsVisible="False" />
+      <DockPanel>
+        <CheckBox Name="CheckOverrideXinput" Content="Override Xinput library" Margin="5" IsChecked="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=XinputOverride}" Checked="CheckOverrideXinput_OnChecked"/>
+        <ComboBox SelectedIndex="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=XinputDll}" HorizontalAlignment="Right" IsEnabled="{Binding Source={x:Static p:AppSettings.Default},
+                                          Path=XinputOverride}" Width="120">
+          <ComboBoxItem Content="xinput1_4.dll" />
+          <ComboBoxItem Content="xinput1_3.dll" />
+          <ComboBoxItem Content="xinput9_1_0.dll" />
+        </ComboBox>
+      </DockPanel>
+      <Button Margin="5,10"
+              Click="ButtonResetAll_Click"
+              Content="Reset all settings" />
+    </StackPanel>
+    <TextBlock Name="TextVersion"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               Foreground="#FF7F7F7F">
+      WoWmapper Version Information
+    </TextBlock>
+  </Grid>
+</UserControl>

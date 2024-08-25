@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:properties="clr-namespace:WoWmapperX.AvaloniaImpl"
+             d:DesignHeight="421"
+             d:DesignWidth="313"
+             mc:Ignorable="d"
+             x:Class="WoWmapperX.SettingsPanels.SettingsAnalog">
+  <Grid Margin="5">
+    <StackPanel Margin="5,0">
+      <TextBlock FontSize="16">Trigger Sensitivity</TextBlock>
+      <Separator Height="5" />
+      <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Left" />
+        <Slider Name="SliderLeftTrigger"
+                Grid.Column="1"
+                Maximum="250"
+                Minimum="20"
+                ToolTip.Tip="The trigger sensitivity for the left trigger."
+                Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                        Path=TriggerThresholdLeft}" />
+        <TextBlock Grid.Column="2"
+                   Width="30"
+                   Text="{Binding ElementName=SliderLeftTrigger,
+                                          Path=Value}"
+                   TextAlignment="Center" />
+      </Grid>
+      <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Right" />
+        <Slider Name="SliderRightTrigger"
+                Grid.Column="1"
+                Maximum="250"
+                Minimum="20"
+                ToolTip.Tip="The trigger sensitivity for the right trigger."
+                Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                        Path=TriggerThresholdRight}" />
+        <TextBlock Grid.Column="2"
+                   Width="30"
+                   Text="{Binding ElementName=SliderRightTrigger,
+                                          Path=Value}"
+                   TextAlignment="Center" />
+      </Grid>
+      <TextBlock Margin="0,5,0,0" FontSize="16">Cursor and Camera</TextBlock>
+      <Separator Height="5" />
+      <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Deadzone" />
+        <Slider Name="SliderDeadzone"
+                Grid.Column="1"
+                Maximum="100"
+                Minimum="1"
+                ToolTip.Tip="The radius from the center of the axis which will not cause cursor movement."
+                Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                        Path=CursorDeadzone}" />
+        <TextBlock Grid.Column="2"
+                   Width="30"
+                   Text="{Binding ElementName=SliderDeadzone,
+                                          Path=Value}"
+                   TextAlignment="Center" />
+      </Grid>
+      <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Speed" />
+        <Slider Name="SliderSpeed"
+                Grid.Column="1"
+                Maximum="30"
+                Minimum="1"
+                ToolTip.Tip="The overall rate at which the cursor will move. Increase this to make the cursor move faster."
+                Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                        Path=CursorSpeed}" />
+        <TextBlock Grid.Column="2"
+                   Width="30"
+                   Text="{Binding ElementName=SliderSpeed,
+                                          Path=Value}"
+                   TextAlignment="Center" />
+      </Grid>
+      <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="80" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="40" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Curve" />
+        <Slider Name="SliderCurve"
+                Grid.Column="1"
+                Maximum="10"
+                Minimum="1"
+                ToolTip.Tip="The input curve of the analog stick. Increase this to speed up cursor movement when less input is applied."
+                Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                        Path=CursorCurve}" />
+        <TextBlock Grid.Column="2"
+                   Width="30"
+                   Text="{Binding ElementName=SliderCurve,
+                                          Path=Value}"
+                   TextAlignment="Center" />
+      </Grid>
+      <TextBlock Margin="0,5,0,0" FontSize="16">Touchpad</TextBlock>
+      <Separator Height="5" />
+      <CheckBox Margin="5,5,0,0"
+                Content="Enable touchpad cursor control"
+                IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                          Path=EnableTouchpad}"
+                ToolTip.Tip="Enable or disable the DualShock 4 touchpad." />
+      <DockPanel Margin="5">
+        <TextBlock Margin="0,5" Text="Touchpad Buttons" />
+        <ComboBox Width="140"
+                  HorizontalAlignment="Right"
+                  SelectedIndex="{Binding Source={x:Static properties:AppSettings.Default},
+                                                  Path=TouchpadMode}">
+          <ComboBoxItem>Left/Right Click</ComboBoxItem>
+          <ComboBoxItem>Share/Options</ComboBoxItem>
+        </ComboBox>
+      </DockPanel>
+      <TextBlock Margin="0,5,0,0" FontSize="16">Miscellaneous</TextBlock>
+      <Separator Height="5" />
+      <CheckBox Margin="5,5,0,0"
+                Content="Simulate hardware mouse input"
+                IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                          Path=InputHardwareMouse}"
+                ToolTip.Tip="Simulate a hardware mouse. This may resolve some issues related mouse movement." />
+    </StackPanel>
+  </Grid>
+</UserControl>

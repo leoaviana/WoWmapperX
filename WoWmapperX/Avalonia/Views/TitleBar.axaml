@@ -1,0 +1,144 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WoWmapperX.AvaloniaViews.TitleBar"
+             DockPanel.Dock="Top"> 
+  
+  <StackPanel>
+    <Grid>
+      <!--The proper way would be not to use white as default, but somehow retrieve the users' window chrome color.-->
+      <DockPanel Background="BlueViolet"
+                 IsHitTestVisible="False"
+                 Name="TitleBarBackground"></DockPanel>
+      <DockPanel Name="titleBar">
+        <StackPanel Orientation="Horizontal"
+                    DockPanel.Dock="Left"
+                    Spacing="0">
+          <Image Source="/Resources/wowmapper.ico"
+                 Height="20"
+                 Width="20"
+                 VerticalAlignment="Center"
+                 Margin="5,0,3,0"
+                 Name="WindowIcon"></Image>
+          <NativeMenuBar DockPanel.Dock="Top"
+                         Width="100"
+                         HorizontalAlignment="Left"
+                         Name="SeamlessMenuBar"></NativeMenuBar>
+          <TextBlock Text="WOWMAPPERX"
+                     FontSize="13"
+                     Foreground="WHITE"
+                     VerticalAlignment="Center"
+                     IsHitTestVisible="False"
+                     Name="SystemChromeTitle"></TextBlock>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="0">
+          <Image Margin="0,0,5,0"
+                 Width="16"
+                 Height="20" 
+                 Source="/Resources/settings.png"
+				 Name="SettingsButton"
+                 PointerPressed="Settings_Pressed">
+            <Image.Styles>
+              <Style Selector="Image:pointerover">
+                <Setter Property="Opacity" Value="1"/>
+              </Style>
+              <Style Selector="Image:not(:pointerover)">
+                <Setter Property="Opacity" Value="0.7"/>
+              </Style>
+            </Image.Styles>
+          </Image>
+          <Rectangle HorizontalAlignment="Stretch" Width="1" Height="15" Margin="5,6" Opacity="0.7" Stroke="Black" Fill="White" />
+          <Button Width="46"
+                  Height="30"
+                  HorizontalContentAlignment="Center"
+                  BorderThickness="0"
+                  Name="MinimizeButton"
+				  Classes="Flat with Accent"
+                  ToolTip.Tip="Minimize">
+            <Button.Resources>
+              <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+            </Button.Resources>
+            <Button.Styles> 
+              <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="#44AAAAAA"/>
+              </Style>
+              <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="Transparent"/>
+              </Style>
+            </Button.Styles> 
+            <Path Margin="0,2,0,0"
+				  Width="10"
+                  Stretch="Uniform"
+                  Fill="White"
+                  Data="M2048 1229v-205h-2048v205h2048z"></Path>
+          </Button>
+
+          <Button IsVisible="False" Width="46"
+                  VerticalAlignment="Stretch"
+                  BorderThickness="0"
+				  Classes="Flat with Accent"				  
+                  Name="MaximizeButton">
+            <ToolTip.Tip>
+              <ToolTip Content="Maximize"
+                       Name="MaximizeToolTip"></ToolTip>
+            </ToolTip.Tip>
+
+            <Button.Resources>
+              <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+            </Button.Resources>
+            <Button.Styles>
+              <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="#44AAAAAA"/>
+              </Style>
+              <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="Transparent"/>
+              </Style>
+            </Button.Styles>
+            <Path Margin="0,2,0,0"
+				  Width="10"
+                  Stretch="Uniform"
+                  Fill="White"
+                  Name="MaximizeIcon"
+                  Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"></Path>
+          </Button>
+
+          <Button Width="46"
+                  VerticalAlignment="Stretch"
+                  BorderThickness="0"
+                  Name="CloseButton"
+				  Classes="Flat with Accent"
+                  ToolTip.Tip="Close">
+            <Button.Resources>
+              <CornerRadius x:Key="ControlCornerRadius">0</CornerRadius>
+            </Button.Resources>
+            <Button.Styles> 
+              <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="Red"/>
+              </Style>
+              <Style Selector="Button:not(:pointerover) /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Background" Value="Transparent"/>
+              </Style>
+              <Style Selector="Button:pointerover > Path">
+                <Setter Property="Fill" Value="Wheat"/>
+              </Style>
+              <Style Selector="Button:not(:pointerover) > Path">
+                <Setter Property="Fill" Value="White"/>
+              </Style>
+            </Button.Styles>
+            <Path Margin="0,2,0,0"
+				  Width="10"
+                  Stretch="Uniform"
+                  Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z"></Path>
+          </Button>
+
+        </StackPanel>
+      </DockPanel>
+    </Grid>
+    <NativeMenuBar HorizontalAlignment="Left"
+                   Name="DefaultMenuBar"></NativeMenuBar>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"			 
+			 xmlns:localvms="using:WoWmapperX.ViewModels.SettingsDevicesViewModel"
+			 x:DataType="localvms:ViewModel"
+             mc:Ignorable="d"
+             d:DesignHeight="421"
+             d:DesignWidth="313"
+             x:Class="WoWmapperX.SettingsPanels.SettingsDevices">
+	
+  <UserControl.Resources>  
+    <DataTemplate x:Key="ControllerTemplate" x:DataType="localvms:Item">
+      <Grid Height="40">
+        <Rectangle Width="300" Height="40" Opacity="{Binding SelectedOpacity}" Fill="Gray" />
+        <DockPanel Height="40">
+          <Image Width="24"
+                 Height="24" Margin="5,0"
+                 Source="{Binding Image}" Stretch="Fill"/>
+          <TextBlock Width="80"
+                     VerticalAlignment="Center"
+                     Text="{Binding Type}" />
+          <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+        </DockPanel>
+      </Grid>
+    </DataTemplate> 
+  </UserControl.Resources> 
+  <Grid Margin="5">
+    <StackPanel Margin="5,0">
+      <TextBlock Margin="0" FontSize="16">Selected Device</TextBlock>
+      <Separator Margin="0,5" Foreground="White" />
+      <Grid Height="40">
+        <ItemsRepeater Name="ListSelectedDevice" ItemTemplate="{StaticResource ControllerTemplate}" />
+        <TextBlock Name="TextNoController"
+                   VerticalAlignment="Center"
+                   Text="No Active Controller"
+                   TextAlignment="Center" />
+      </Grid>
+      <TextBlock Margin="0,5" FontSize="16">Available Devices</TextBlock>
+      <ItemsRepeater Classes="avalDev" Name="ListAvailableDevices" ItemsSource="{Binding Items}"
+                ItemTemplate="{StaticResource ControllerTemplate}"
+                MinHeight="40"
+                Margin="0" 
+                DoubleTapped="ListAvailableDevices_OnMouseDoubleClick"/>
+      <Button Margin="0,5"
+              HorizontalAlignment="Right"
+              Click="ButtonUseController_Click"
+              Content="Use Selected Controller" />
+    </StackPanel>
+
+  </Grid>
+</UserControl>

@@ -1,0 +1,214 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:properties="clr-namespace:WoWmapperX.AvaloniaImpl"
+			 xmlns:local="using:WoWmapperX.SettingsPanels"
+             mc:Ignorable="d" d:DesignWidth="323" d:DesignHeight="500"
+             x:Class="WoWmapperX.SettingsPanels.SettingsMemoryReading">
+  <Grid Margin="5">
+    <StackPanel>
+      <TextBlock Margin="5,0"
+                 FontSize="16"
+                 Text="Memory Reading" />
+      <Separator Margin="5" />
+      <StackPanel Name="StackWarning" 
+                  Height="130"
+                  Margin="5,0">
+        <TextBlock FontSize="13" Margin="5" TextWrapping="Wrap">
+          This feature reads information from World of Warcraft to assist with controller gameplay.
+        </TextBlock>
+        <TextBlock FontSize="13" Margin="5,0" TextWrapping="Wrap">
+          By enabling this feature you understand that you may be putting your account at risk, and that you are solely responsible for any actions that may be taken against you or your account.
+        </TextBlock>
+        <TextBlock FontSize="13" Margin="5"
+                   Cursor="Hand"
+                   Foreground="CornflowerBlue"
+                   Tapped="TextMoreInfo_Click"
+                   TextAlignment="Center"
+                   TextDecorations="Underline">
+          More information about this feature
+        </TextBlock>
+      </StackPanel>
+      <StackPanel Name="StackContent" Margin="0">
+        <CheckBox Name="CheckEnableMemoryReading"
+                  Margin="13,5" 
+                  Checked="HideWarning"
+                  Content="Enable memory reading"
+                  IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                              Path=EnableMemoryReading}"
+                  Unchecked="ShowWarning" />
+        <Separator Margin="5" />
+        <TabControl Margin="5,0" IsEnabled="{Binding ElementName=CheckEnableMemoryReading, Path=IsChecked}" AutoScrollToSelectedItem="True" Classes="Scrollable">
+          <TabItem Header="General">
+            <StackPanel>
+              <CheckBox Margin="0,5"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryOverrideMenu}"
+                        ToolTip.Tip="Allows you to navigate character selection quickly without using the cursor.">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                  <TextBlock>Navigate character selection with</TextBlock>
+                  <Image Name="ImageMenuUp"
+                         Width="18"
+                         Height="18"
+                         Margin="0,0,0,0"
+                         Source="/Controllers/DS4/Buttons/CP_L_UP.png" />
+                  <Image Name="ImageMenuDown"
+                         Width="18"
+                         Height="18"
+                         Margin="0,0,0,0"
+                         Source="/Controllers/DS4/Buttons/CP_L_DOWN.png" />
+
+                  <TextBlock>and</TextBlock>
+                  <Image Name="ImageMenuConfirm"
+                         Width="18"
+                         Height="18"
+                         Margin="0,0"
+                         Source="/Controllers/DS4/Buttons/CP_R_DOWN.png" />
+                </StackPanel>
+              </CheckBox>
+              <CheckBox Margin="0,5"
+                        Content="Cancel mouselook when alt-tabbed"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryAutoCancel}"
+                        ToolTip.Tip="Automatically cancels mouselook in-game when the game window loses focus." />
+              <CheckBox Margin="0,5"
+                        Content="Show cursor position on overlay during&#x0a;mouselook"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=EnableOverlayCrosshair}"
+                        IsEnabled="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=EnableOverlay}"
+                        ToolTip.Tip="Shows a crosshair on the overlay that indicates the cursor position while mouselooking." />
+            </StackPanel>
+          </TabItem>
+
+          <TabItem Header="Input Assist"> 
+            <StackPanel>
+              <CheckBox Margin="0,5"
+                        Content="Auto-center mouse cursor after mouselook"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryAutoCenter}"
+                        ToolTip.Tip="Moves the mouse cursor to the center of the screen after mouselook has been active for the configured minimum duration." />
+              <DockPanel Margin="0,0,0,5"
+                          HorizontalAlignment="Left"
+                          >
+                <TextBlock Margin="25,0,0,0">Trigger after</TextBlock>
+                <TextBlock Margin="2,0" Text="{Binding ElementName=SliderAutoCancelDelay, Path=Value}" />
+                <TextBlock>ms</TextBlock> 
+              </DockPanel>
+                <StackPanel Margin="10,-20,0,0">
+                <Slider Name="SliderAutoCancelDelay"
+                        Width="150"  
+                        Margin="-120,20,0,0"
+                        Maximum="10000"
+                        Minimum="0"
+                        Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                                        Path=MemoryAutoCenterDelay}" />
+              </StackPanel>
+              <DockPanel>
+                <CheckBox Margin="0,5"
+                          ToolTip.Tip="Automatically toggle the walk hotkey when the analog stick is tilted below the defined threshold."
+                    IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                              Path=MemoryAutoWalk}">
+                  <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBlock>
+                      Auto-toggle run/walk at
+                    </TextBlock>
+                    <TextBlock Margin="5,0,0,0"
+                               VerticalAlignment="Center"
+                               Text="{Binding ElementName=SliderWalkThreshold,
+                                                                  Path=Value}" />
+                    <TextBlock Text="%" />
+                  </StackPanel>
+                </CheckBox>
+              </DockPanel>
+              <DockPanel Margin="-120,0,0,0">
+                <Slider Name="SliderWalkThreshold"
+                        Width="100" 
+                        HorizontalAlignment="Center"
+                        Maximum="120"
+                        Minimum="35"
+                        SmallChange="1"
+                        IsEnabled="False"/>
+                <!-- Value="{Binding Source={x:Static properties:AppSettings.Default},
+                                                        Path=WalkThreshold}"  -->
+              </DockPanel>
+              <CheckBox Margin="0,5"
+                        Content="Invert left/right turn while mouselooking"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryInvertTurn}" />
+              <CheckBox Margin="0,5"
+                        Content="Disable touchpad while mouselook is active"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryTouchpadCursorOnly}" />
+              <DockPanel>
+                <CheckBox Margin="0,5"
+                          Content="Override buttons when casting AoE spells"
+                          IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                              Path=MemoryOverrideAoeCast}"
+                          ToolTip.Tip="Confirm and cancel casting targeted AoE spells using buttons instead of mouse clicks." />
+
+              </DockPanel>
+              <StackPanel Width="240"
+                          Margin="22,0"
+                          HorizontalAlignment="Left">
+                <DockPanel Margin="2">
+                  <TextBlock VerticalAlignment="Center" Text="Cast Spell" />
+                  <ComboBox Name="ComboAoeConfirm"
+                            Width="150"
+                            HorizontalAlignment="Right"
+                            SelectionChanged="AoeOverride_Changed" />
+                </DockPanel>
+                <DockPanel Margin="2">
+                  <TextBlock VerticalAlignment="Center" Text="Cancel" />
+                  <ComboBox Name="ComboAoeCancel"
+                            Width="150"
+                            HorizontalAlignment="Right" 
+                            SelectionChanged="AoeOverride_Changed" />
+                </DockPanel>
+              </StackPanel>
+            </StackPanel>
+          </TabItem>
+          <TabItem Header="Feedback">
+            <StackPanel>
+              <CheckBox Margin="0,5"
+                        Content="Vibrate controller when taking damage"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryVibrationDamage}"
+                        ToolTip.Tip="Vibrates the controller based on the amount of damage your character is taking." />
+              <CheckBox Margin="0,5"
+                        Content="Vibrate controller when receiving healing"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryVibrationHealing}"
+                        ToolTip.Tip="Gently vibrates the controller based on the amount of healing your character is receiving." />
+              <CheckBox Margin="5"
+                        Content="Colour lightbar by health percentage"
+                        IsChecked="{Binding Source={x:Static properties:AppSettings.Default},
+                                                          Path=MemoryLightbar}"
+                        ToolTip.Tip="Colours the DualShock 4 lightbar based on the amount of health you have remaining."
+                        IsVisible="False" />
+            </StackPanel>
+          </TabItem>
+          <TabItem Header="Debug">
+            <StackPanel>
+              <Button Content="Refresh Values" Margin="0,5" Name="ButtonRefreshValues" Click="ButtonRefreshValues_Click" /> 
+                  <DataGrid IsReadOnly="True" Height="273" Name="ListDebug" x:DataType="local:DebugItem">
+                    <DataGrid.Columns>
+                      <DataGridTextColumn Header="Name"
+                                          Binding="{Binding Name}"
+                                      />
+                      <DataGridTextColumn Header="Address"
+                                          Binding="{Binding Address}"
+                                      />
+                      <DataGridTextColumn Header="Value"
+                                          Binding="{Binding Value}"/>
+                    </DataGrid.Columns>
+                  </DataGrid> 
+            </StackPanel>
+          </TabItem>
+        </TabControl>
+      </StackPanel>
+    </StackPanel>
+
+  </Grid>
+</UserControl>

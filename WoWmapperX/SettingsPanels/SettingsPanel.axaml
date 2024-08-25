@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:styles="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"             
+             xmlns:pages="clr-namespace:WoWmapperX.SettingsPanels;assembly=WoWmapperX"
+             x:Class="WoWmapperX.SettingsPanels.SettingsPanel"
+             Width="313"
+             Height="500"
+             mc:Ignorable="d">
+	<!--     xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"-->
+
+  <styles:SnackbarHost HostName="Root">
+	  <styles:NavigationDrawer Name="LeftDrawer"
+                             LeftDrawerOpened="{Binding ElementName=NavDrawerSwitch, Path=IsChecked, Mode=TwoWay}">
+		  <styles:NavigationDrawer.LeftDrawerContent>
+			  <ScrollViewer>
+				  <StackPanel>
+					  <styles:ColorZone Mode="Accent" Height="180">
+						  <StackPanel>
+							  <Image Width="120" Height="120" HorizontalAlignment="Center" VerticalAlignment="Top"
+									 Source="/Resources/wowmapper.ico" Margin="0,0,0,-8" />
+						  </StackPanel>
+					  </styles:ColorZone>
+					  <ListBox Classes="Drawer" Name="DrawerList"
+							   Focusable="{Binding ElementName=LeftDrawer, Path=LeftDrawerOpened}">
+						  <ListBox.Styles>
+							  <Style Selector="ListBoxItem">
+								  <Setter Property="Height" Value="48" />
+								  <Setter Property="Padding" Value="16,0" />
+								  <Setter Property="VerticalContentAlignment" Value="Center" />
+							  </Style>
+						  </ListBox.Styles>
+						  <TextBlock Classes="Body2" Text="WoWmapper" />
+						  <TextBlock Classes="Body2" Text="Controllers" />
+						  <TextBlock Classes="Body2" Text="Keybindings" />
+						  <TextBlock Classes="Body2" Text="Analog Inputs" />
+						  <TextBlock Classes="Body2" Text="Overlay" />
+						  <TextBlock Classes="Body2" Text="Memory Reading" /> 
+					  </ListBox>
+				  </StackPanel>
+			  </ScrollViewer>
+		  </styles:NavigationDrawer.LeftDrawerContent>
+		  <DockPanel LastChildFill="true">
+			  <styles:ColorZone Name="PART_AppBarContainer" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+								DockPanel.Dock="Top"
+								Height="56" Mode="PrimaryMid" ZIndex="1">
+				  <Grid Margin="16">
+					  <Grid.ColumnDefinitions>
+						  <ColumnDefinition Width="24" />
+						  <ColumnDefinition Width="32" />
+						  <ColumnDefinition Width="*" />
+						  <ColumnDefinition Width="32" />
+						  <ColumnDefinition Width="Auto" />
+					  </Grid.ColumnDefinitions>
+					  <ToggleButton Name="NavDrawerSwitch"
+									Classes="Flat TransparentBack ConstantForeground ImplicitForeground"
+									Width="32" Height="32" Padding="4">
+						  <Path Name="MenuIcon" Margin="0,8,0,0"
+								Stretch="Uniform"
+								Width="24"
+								Height="24"
+								Fill="White"
+								Data="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+						  <!-- <avalonia:MaterialIcon Kind="Menu" Width="24" Height="24" /> -->
+					  </ToggleButton>
+					  <TextBlock Grid.Column="2" Classes="Headline6" Text="Settings"
+								 VerticalAlignment="Center" />
+				  </Grid>
+			  </styles:ColorZone>
+			  <ScrollViewer Name="mainScroller"
+							DockPanel.Dock="Top"
+							HorizontalContentAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							HorizontalScrollBarVisibility="Disabled">
+				  <Border HorizontalAlignment="Stretch"
+						  VerticalAlignment="Stretch">
+					  <Carousel Name="PageCarousel"
+								HorizontalAlignment="Stretch">
+						  <Carousel.Styles>
+							  <Style Selector="Carousel#PageCarousel:not(.notransitions)">
+								  <Setter Property="PageTransition">
+									  <PageSlide Duration="0.25" SlideOutEasing="CircularEaseOut"
+												 SlideInEasing="CircularEaseOut" />
+								  </Setter>
+							  </Style>
+						  </Carousel.Styles>
+
+						  <pages:SettingsWoWmapper />
+
+						  <pages:SettingsDevices/>
+
+						  <pages:SettingsKeybindings/>
+
+						  <pages:SettingsAnalog/>
+
+						  <pages:SettingsOverlay/>
+
+						  <pages:SettingsMemoryReading/>
+
+					  </Carousel>
+				  </Border>
+			  </ScrollViewer>
+		  </DockPanel>
+	  </styles:NavigationDrawer>
+  </styles:SnackbarHost>
+</UserControl>

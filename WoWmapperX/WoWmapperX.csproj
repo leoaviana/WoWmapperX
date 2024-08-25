@@ -1,0 +1,171 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <ApplicationIcon>wowmapper.ico</ApplicationIcon>
+	<Platforms>AnyCPU;x64;x86</Platforms>
+	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	  <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup> 
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.3" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+    <PackageReference Include="Avalonia" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.1.3" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.1.3" />
+    <PackageReference Include="Material.Avalonia" Version="3.7.2" />
+  </ItemGroup>
+  <ItemGroup>
+	<AvaloniaResource Include="Resources\*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Properties\Resources.Designer.cs" />
+    <Compile Remove="Properties\Settings.Designer.cs" />
+    <Compile Remove="SettingsPanels\FolderSelectDialog\FolderSelectDialog.cs" />
+    <Compile Remove="SettingsPanels\FolderSelectDialog\Reflector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Properties\Resources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ConsolePort\WoWmapper.lua" />
+    <None Remove="Controllers\DS4\Buttons\CP_L_DOWN.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_L_LEFT.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_L_RIGHT.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_L_UP.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_R_DOWN.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_R_LEFT.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_R_RIGHT.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_R_UP.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_TL1.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_TL2.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_TR1.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_TR2.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_T_L3.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_T_R3.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_X_CENTER.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_X_LEFT.png" />
+    <None Remove="Controllers\DS4\Buttons\CP_X_RIGHT.png" />
+    <None Remove="Controllers\IController.cs~RF61cfad3.TMP" />
+    <None Remove="Controllers\Xbox\Buttons\CP_L_DOWN.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_L_GRIP.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_L_LEFT.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_L_RIGHT.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_L_UP.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_R_DOWN.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_R_GRIP.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_R_LEFT.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_R_RIGHT.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_R_UP.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_TL1.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_TL2.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_TR1.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_TR2.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_T_L3.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_T_R3.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_X_CENTER.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_X_LEFT.png" />
+    <None Remove="Controllers\Xbox\Buttons\CP_X_RIGHT.png" />
+    <None Remove="Overlay\Images\Background.png" />
+    <None Remove="Overlay\Images\BackgroundBottom.png" />
+    <None Remove="Overlay\Images\BackgroundIcon.png" />
+    <None Remove="Overlay\Images\Crosshair.png" />
+    <None Remove="Overlay\Images\Header.png" />
+    <None Remove="Overlay\Images\Illidan.png" />
+    <None Remove="Overlay\Images\Rhonin.png" />
+    <None Remove="wowmapper.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="ConsolePort\WoWmapper.lua" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_L_DOWN.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_L_LEFT.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_L_RIGHT.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_L_UP.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_R_DOWN.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_R_LEFT.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_R_RIGHT.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_R_UP.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_TL1.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_TL2.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_TR1.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_TR2.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_T_L3.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_T_R3.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_X_CENTER.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_X_LEFT.png" />
+    <AvaloniaResource Include="Controllers\DS4\Buttons\CP_X_RIGHT.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_L_DOWN.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_L_GRIP.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_L_LEFT.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_L_RIGHT.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_L_UP.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_R_DOWN.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_R_GRIP.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_R_LEFT.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_R_RIGHT.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_R_UP.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_TL1.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_TL2.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_TR1.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_TR2.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_T_L3.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_T_R3.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_X_CENTER.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_X_LEFT.png" />
+    <AvaloniaResource Include="Controllers\Xbox\Buttons\CP_X_RIGHT.png" />
+    <AvaloniaResource Include="Overlay\Images\Background.png" />
+    <AvaloniaResource Include="Overlay\Images\BackgroundBottom.png" />
+    <AvaloniaResource Include="Overlay\Images\BackgroundIcon.png" />
+    <AvaloniaResource Include="Overlay\Images\Crosshair.png" />
+    <AvaloniaResource Include="Overlay\Images\Header.png" />
+    <AvaloniaResource Include="Overlay\Images\Illidan.png" />
+    <AvaloniaResource Include="Overlay\Images\Rhonin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wowmapper.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </None>
+    <None Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </None>
+    <None Include="SettingsPanels\FolderSelectDialog\FolderSelectDialog.cs" />
+    <None Include="SettingsPanels\FolderSelectDialog\Reflector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+</Project>

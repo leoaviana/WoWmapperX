@@ -1,0 +1,87 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:titlebars="clr-namespace:WoWmapperX.AvaloniaViews;assembly=WoWmapperX"
+             xmlns:settings="clr-namespace:WoWmapperX.SettingsPanels"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="500"
+             x:Class="WoWmapperX.AvaloniaViews.MainPage">
+
+
+<DockPanel HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Name="ContentWrapper">
+    <DockPanel x:Name="StackContent" Margin="20,10,20,0" Width="260" HorizontalAlignment="Left">
+      <StackPanel VerticalAlignment="Top">
+        <TextBlock FontSize="20" Text="Controller" />
+        <Separator Height="2" />
+        <StackPanel Margin="20,5,0,10">
+          <TextBlock Name="TextControllerStatus1" Margin="2" Text="Controller connection status" />
+          <TextBlock Name="TextControllerStatus2" Margin="2" Text="Controller battery status" />
+          <TextBlock Name="TextControllerStatus3"
+                     Margin="2"
+                     Foreground="Red"
+                     IsVisible="False" Text="Controller status warning" />
+        </StackPanel>
+        <TextBlock FontSize="20" Text="World of Warcraft" />
+        <Separator Height="2" />
+        <StackPanel Margin="20,5,0,10">
+          <TextBlock Name="TextWoWStatus1" Margin="2" Text="Game process status" />
+          <TextBlock Name="TextWoWStatus2" Margin="2" Text="Memory reading status" />
+        </StackPanel>
+        <TextBlock FontSize="20" Text="Updates" />
+        <Separator Height="2" />
+        <DockPanel Margin="20,5,5,5">
+          <TextBlock Name="TextUpdateStatus1"
+                     Margin="2,5"
+                     VerticalAlignment="Center"
+                     Text="You can check for updates" />
+
+			<TextBlock Name="TextUpdateLink1"
+					   Margin="2,5"
+                       Cursor="Hand"
+                       Foreground="CornflowerBlue"
+                       Tapped="TextUpdateLink1_Click"
+					   VerticalAlignment="Center"
+					   Text="here" />
+          <Image Name="ImageUpdateIcon"
+                 Width="16"
+                 Height="16"
+                 Margin="5,0"
+                 HorizontalAlignment="Right"
+                 RenderTransformOrigin="0.47,0.41"
+                 Source="/Resources/update-check.png">
+          </Image>
+        </DockPanel>
+        <StackPanel Name="PanelDonate"
+                    Width="260"
+                    HorizontalAlignment="Left">
+          <Separator Height="10" />
+          <TextBlock Width="200"
+                     Margin="2"
+                     TextAlignment="Center"
+                     TextWrapping="Wrap">
+            Thank you for using WoWmapperX!
+          </TextBlock>
+          <TextBlock Width="200"
+                     Margin="5"
+                     TextAlignment="Center"
+                     TextWrapping="Wrap">
+            If you like it, please consider making a donation.
+          </TextBlock>
+          <Image Name="DonateButton"
+                 Width="130"
+                 HorizontalAlignment="Center"
+                 Cursor="Hand"
+                 Source="/Resources/donate.png" />
+		    <TextBlock Name="TextVersion"
+					  HorizontalAlignment="Center"
+					  VerticalAlignment="Bottom"
+					  Foreground="#FF7F7F7F">
+				WoWmapper Version Information
+			</TextBlock>
+        </StackPanel>
+      </StackPanel>
+    </DockPanel>
+  </DockPanel>
+</UserControl>
