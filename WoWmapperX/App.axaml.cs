@@ -61,13 +61,6 @@ namespace WoWmapperX
             {
                 AppSettings.Default.Save();
             };
-
-            int tmp = Array.FindIndex<String>(Args, p => p.StartsWith("-ldlibraries:"));
-            if (tmp != -1)
-            {
-                loadLibraries = true;
-                librariesList = Args[tmp].Replace("-ldlibraries:", "").Split(',').ToList();
-            }
         }
 
         public static void InvokeThemeChanged()
@@ -148,14 +141,8 @@ namespace WoWmapperX
             // Start up threads
             BindManager.LoadBindings();
             ProcessManager.Start();
-
-            if (Array.Find(Args, p => p == "-dinput") == null)
-            {
-                ControllerManager.Start();
-                InputMapper.Start();
-            }
-            else
-                Log.WriteLine("WoWmappers InputMapper has been disabled with the command line argument -dinput");
+            ControllerManager.Start();
+            InputMapper.Start();
         } 
         private void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e)
         {

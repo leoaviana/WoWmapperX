@@ -43,17 +43,22 @@ namespace WoWmapperX.WoWInfoReader
             if (IsAttached) Close();
 
             // Test process architecture
-            //bool isWin32;
-            //IsWow64Process(wowProcess.Handle, out isWin32);
+            bool isWin32;
+            IsWow64Process(wowProcess.Handle, out isWin32);
 
-            //if (!isWin32)
-            //   throw new Exception("The selected process must be 32-bit.");
+            if (!isWin32)
+            {
+                Log.WriteLine("Unable to open process for memory reading. the process is not a 32 bit process.");
+                return;
+            }
 
             // Attempt to open for memory reading
             var hProc = OpenProcess(ProcessAccessFlags.VirtualMemoryRead, false, wowProcess.Id);
             if (hProc == IntPtr.Zero)
-                throw new Exception("Unable to open process for memory reading.");
-            
+            {
+                Log.WriteLine("Unable to open process for memory reading. an unknown error occurred.");
+                return;
+            } 
             _process = wowProcess;
             _handle = hProc;
 

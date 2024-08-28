@@ -38,7 +38,6 @@ namespace WoWmapperX.WorldOfWarcraft
 
         #endregion
 
-        private static readonly string[] WoWProcessNames = new[] {"wow", "wow-64", "wowt", "wowt-64", "wowb", "wowb-64"}; 
         private static CancellationTokenSource _cts;
 
         public static Task ManagerTask { get; private set; }
@@ -86,7 +85,7 @@ namespace WoWmapperX.WorldOfWarcraft
                             Process.GetProcesses()
                                 .FirstOrDefault(
                                     process =>
-                                        WoWProcessNames.Contains(process.ProcessName.ToLower()) &&
+                                        AppSettings.Default.GameProcessNames.Contains(process.ProcessName.ToLower()) &&
                                         process.HasExited == false);
 
                         if (wowProcess != null)
@@ -105,23 +104,6 @@ namespace WoWmapperX.WorldOfWarcraft
                             if (AppSettings.Default.EnableMemoryReading) // Attach memory reader
                                 WoWReader.Open(wowProcess);
 
-                            if (Avalonialess.IsRunning)
-                            {
-                                if (Avalonialess.LoadLibraries == true && !LibraryManager.IsLoaded)
-                                    LibraryManager.LoadRange(Avalonialess.LibraryList);
-                            }
-                            else
-                                if (App.LoadLibraries == true && !LibraryManager.IsLoaded)
-                                    LibraryManager.LoadRange(App.LibraryList);
-
-                            if(Environment.GetCommandLineArgs().Contains("-dterm"))
-                            {
-                                if (Avalonialess.IsRunning)
-                                    _cts.Cancel();
-                                else
-                                    Avalonia.Threading.Dispatcher.UIThread.Post(() => (Avalonia.Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0));
-
-                            }
                         }
                     }
                     catch (Exception ex)
@@ -140,13 +122,16 @@ namespace WoWmapperX.WorldOfWarcraft
                         {
                             Log.WriteLine($"Process [{wGameProcessInfo.Id}: {wGameProcessInfo.ProcessName}] has exited");
 
-                            LibraryManager.Unload();
-
                             GameProcess.Dispose();
                             GameProcess = null;
 
-                            if (App.WaitForExit == true)
-                                Avalonia.Threading.Dispatcher.UIThread.Post(() => (Avalonia.Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0));
+                            if (App.WaitForExit == true) 
+                            {
+                                if (Avalonialess.IsRunning)
+                                    _cts.Cancel();
+                                else
+                                    Avalonia.Threading.Dispatcher.UIThread.Post(() => (Avalonia.Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0));
+                            }
 
                             continue;
                         }
@@ -164,26 +149,6 @@ namespace WoWmapperX.WorldOfWarcraft
                         if (!AppSettings.Default.EnableMemoryReading && WoWReader.IsAttached)
                             WoWReader.Close();
 
-                        if (!LibraryManager.IsLoaded) 
-                        {
-                            if (Avalonialess.IsRunning)
-                            {
-                                if (Avalonialess.LoadLibraries == true && !LibraryManager.IsLoaded)
-                                    LibraryManager.LoadRange(Avalonialess.LibraryList);
-                            }
-                            else
-                                if (App.LoadLibraries == true && !LibraryManager.IsLoaded)
-                                    LibraryManager.LoadRange(App.LibraryList);
-
-                            if (Environment.GetCommandLineArgs().Contains("-dterm"))
-                            {
-                                if (Avalonialess.IsRunning)
-                                    _cts.Cancel();
-                                else
-                                    Avalonia.Threading.Dispatcher.UIThread.Post(() => (Avalonia.Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime).Shutdown(0));
-
-                            }
-                        }
                     }
                 }
                 catch (Exception ex)

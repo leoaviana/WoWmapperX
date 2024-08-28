@@ -45,16 +45,16 @@ namespace WoWmapperX
                 Console.WriteLine("Available commands:\n");
                 Console.WriteLine("-h / --help                 : displays information for all available command line arguments");
                 Console.WriteLine("-rg:path_to_wow.exe         : launches the game process given it's path eg.: -rg:C:\\Wow\\Wow.exe");
-                Console.WriteLine("-term                       : terminate WoWmapperX whenever the first game process detected terminates"); 
-                Console.WriteLine("-dterm                      : terminate WoWmapperX whenever the first game process is detected, useful to exit after injection");
+                Console.WriteLine("-rg:path_to_wow.exe,(-c;-d) : launches the game process given it's path and with command line arguments separated by ;");
+                Console.WriteLine("-term                       : terminate WoWmapperX whenever the first game process detected terminates (game processes are named Wow.exe)"); 
+                Console.WriteLine("-dterm                      : terminate WoWmapperX whenever the specified process given by -rg terminates");
                 Console.WriteLine("-nogui                      : launch in console mode, useful for logging, verbose mode and lightweight environments");
                 Console.WriteLine("-noconsole                  : launch in silent mode. only available if used with -nogui");
-                Console.WriteLine("-dinput                     : launch with disabled input mapping and controller manager");
-                Console.WriteLine("-ldlibraries:lib1.dll,...   : specifies a list of libraries to load in the game process whenever it's detected to be running. the libraries must be in the same folder as the WoWmapperX's executable.\n\n");
 
                 Console.WriteLine("Examples:\n");
-                Console.WriteLine("Run WoWmapperX.exe as an injector, with silent mode, disabled input and a library to inject: WoWmapperX.exe -nogui -rg:C:\\Wow.exe -dterm -noconsole -dinput -ldlibraries:lib1.dll");
-                Console.WriteLine("Run WoWmapperX.exe with gui and start game by path making sure to close whenever game process finishes: WoWmapperX.exe -rg:C\\Wow.exe -term");
+                Console.WriteLine("Run WoWmapperX.exe silently and start game using it's path making sure to close whenever game process finishes: WoWmapperX.exe -nogui -noconsole -rg:C:\\Wow.exe -dterm");
+                Console.WriteLine("Run WoWmapperX.exe silently and start game using a launcher's path making sure to close whenever the first detected game process finishes: WoWmapperX.exe -nogui -noconsole -rg:C\\WoWLauncher.exe -dterm");
+                Console.WriteLine("Run WoWmapperX.exe silently and start game using LibConsole (WoWCamera.exe) with command line arguments making sure to close whenever the first detected game process finishes: WoWmapperX.exe -nogui -noconsole -rg:C\\WoWCamera.exe,(-n:Wow.exe) -dterm");
 
                 Console.WriteLine("\n\nPress any key to exit.");
                 Console.Read();
@@ -66,9 +66,24 @@ namespace WoWmapperX
             {
                 if (arg.Contains("-rg:"))
                 {
+                    var process = arg.Replace("-rg:", "").Split(',');
+                    var procName = process[0];
+                    string procArgs = "";
+
+                    if (process.Length > 1)
+                    {
+                        procArgs = process[2].Replace("(", "").Replace(")", "").Replace(';', ' ');
+                    }
+
                     try
                     {
-                        ProcessManager.SetGameProcess(System.Diagnostics.Process.Start(arg.Replace("-rg:", "")));
+                        if (args.Contains("-dterm"))
+                        {
+                            ProcessManager.SetGameProcess(System.Diagnostics.Process.Start(procName, procArgs));
+                        }
+                        else
+                            System.Diagnostics.Process.Start(procName, procArgs);
+
                         break;
                     }
                     catch
@@ -78,7 +93,7 @@ namespace WoWmapperX
                 }
             }
 
-            if(args.Contains("-term"))
+            if(args.Contains("-term") || args.Contains("-dterm"))
             {
                 App.WaitForExit = true;
             }

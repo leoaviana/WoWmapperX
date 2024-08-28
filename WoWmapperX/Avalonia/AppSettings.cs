@@ -69,6 +69,7 @@ namespace WoWmapperX.AvaloniaImpl
         private int _xinputDll;
         private bool _memoryInvertTurn;
         private bool _memoryOverrideLogin;
+        private List<String> _gameProcessNames;
 
         #endregion
 
@@ -121,7 +122,8 @@ namespace WoWmapperX.AvaloniaImpl
             { nameof(XinputOverride), false },
             { nameof(XinputDll), 0 },
             { nameof(MemoryInvertTurn), false },
-            { nameof(MemoryOverrideLogin), true }
+            { nameof(MemoryOverrideLogin), true },
+            { nameof(GameProcessNames), (new[] {"wow", "wow-64", "wowt", "wowt-64", "wowb", "wowb-64"}).ToList() }
         };
 
         #region "Properties"
@@ -749,6 +751,19 @@ namespace WoWmapperX.AvaloniaImpl
                 }
             }
         }
+        public List<String> GameProcessNames
+        {
+            get => _gameProcessNames;
+            set
+            {
+                if (_gameProcessNames != value)
+                {
+                    OnSettingChanging(nameof(GameProcessNames), value);
+                    _gameProcessNames = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         #endregion
 
@@ -826,6 +841,7 @@ namespace WoWmapperX.AvaloniaImpl
             XinputDll = (int)DefaultValues[nameof(XinputDll)];
             MemoryInvertTurn = (bool)DefaultValues[nameof(MemoryInvertTurn)];
             MemoryOverrideLogin = (bool)DefaultValues[nameof(MemoryOverrideLogin)];
+            GameProcessNames = (List<String>)DefaultValues[nameof(GameProcessNames)];
         }
 
         private static string ReadSettingsFile()

@@ -40,18 +40,13 @@ namespace WoWmapperX
         private static readonly Guid _appGuid = System.Reflection.Assembly.GetExecutingAssembly().GetType().GUID;
         private static string[] Args;
         private static Mutex _mutex;
-        private static bool loadLibraries = false;
         private static bool isShown = false;
-        private static bool disableInput = false;
         private static bool allocConsole = true;
         private static List<string> librariesList;
 
         private delegate bool ConsoleEventDelegate(int eventType);
 
         static ConsoleEventDelegate handler;
-
-        public static bool LoadLibraries { get { return loadLibraries; } }
-        public static List<string> LibraryList { get { return librariesList; } }
         
         public static bool IsRunning { get; set; }  = false;
 
@@ -89,23 +84,11 @@ namespace WoWmapperX
             Log.WriteLine("                                                                                                         ███    ███ ", false);
             Log.WriteLine("\n\n", false);
             Log.WriteLine("Avalonia UI has been disabled with the command line argument -nogui\n", false);
-            if (Array.Find(Args, p => p == "-dinput") != null)
-            {
-                disableInput = true;
-                Log.WriteLine("WoWmappers InputMapper has been disabled with the command line argument -dinput", false);
-            }
             Log.WriteLine("Game overlay and configurations are unavailable in this mode.");
             Log.WriteLine("", false);
 
             Log.WriteLine("WoWmapper is now starting...");
 
-
-            int tmp = Array.FindIndex<String>(Args, p => p.StartsWith("-ldlibraries:"));
-            if (tmp != -1)
-            {
-                loadLibraries = true;
-                librariesList = Args[tmp].Replace("-ldlibraries:", "").Split(',').ToList();
-            }
 
             if (App.IsWine())
                 Log.WriteLine("Wine environment detected. To avoid mouse and other input related issues, please try playing the game in windowed or " +
@@ -138,13 +121,8 @@ namespace WoWmapperX
 
             // Start up threads
             BindManager.LoadBindings();
-
-            if (!disableInput)
-            {
-                ControllerManager.Start();
-                InputMapper.Start();
-            }
-
+            ControllerManager.Start();
+            InputMapper.Start();
             ProcessManager.Start();
 
             await Task.WhenAny(ProcessManager.ManagerTask);
@@ -160,11 +138,8 @@ namespace WoWmapperX
         private static void Exit()
         { 
             // Shut down threads
-            if (!disableInput)
-            {
-                InputMapper.Stop();
-                ControllerManager.Stop();
-            }
+            InputMapper.Stop();
+            ControllerManager.Stop();
 
             try
             {
