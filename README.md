@@ -7,9 +7,9 @@ WoWmapperX is a fork of [WoWmapper](https://github.com/topher-au/WoWmapper) whic
 
 It's primary purpose is to handle DualShock 4 or Xbox/Xinput controller input and convert it into button presses and mouse movements which are then sent to WoW and processed by [ConsolePortLK](https://github.com/leoaviana/ConsolePortLK). ConsolePortLK binds each key to an action within World of Warcraft, and features a full UI and many features for enhanced gameplay with a controller. WoWmapperX also includes force feedback and input assistance utilites such as vibration, automatic cursor centering and pseudo-analog-sensitive movement as well as many more features designed to make efficient controller gameplay a reality in the World of Warcraft.
 
-## What is the difference between WoWmapperX and WoWmapper?
+### What is the difference between WoWmapperX and WoWmapper?
 
-WoWmapperX has a lot of differences compared to WoWmapper, some of these are:
+WoWmapperX has some differences compared to WoWmapper, which are:
 
 1. Updated project to use .NET 8 and newer (currently using .NET 9 beta for 32bit [NativeAOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) support.)
 2. Migrated from [WPF UI](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/) to [AvaloniaUI](https://avaloniaui.net/) to be able to execute under Wine on Linux. Seems to run fine but needs more testing.
@@ -17,7 +17,7 @@ WoWmapperX has a lot of differences compared to WoWmapper, some of these are:
 4. Reimplemented some memory reading functions used on older WoWmapper versions to improve the user experience. (only for 3.3.5a client)
 5. A GUI-less mode to use less resources.
 
-## What do I need?
+### What do I need?
 
 - A system running Windows 7, 8, 10 or higher
 - Microsoft .NET
@@ -40,7 +40,7 @@ WoWmapperX can be opened with some command line arguments if desired. the comman
 7. -noconsole                  : launch in silent mode. only available if used with -nogui
 ```
 
-Example:<br/> 
+Examples:<br/> 
 1. Run WoWmapperX.exe silently and start game using it's path making sure to close whenever game process finishes:
    ```
    WoWmapperX.exe -nogui -noconsole -rg:C\\Wow.exe -term
@@ -48,6 +48,10 @@ Example:<br/>
 2. Run WoWmapperX.exe silently and start game using a launcher's path making sure to close whenever the first detected game process finishes:
    ```
    WoWmapperX.exe -nogui -noconsole -rg:C\\WoWLauncher.exe -dterm
+   ```
+3. Run WoWmapperX.exe silently and start game using [DynamicCamLK](https://github.com/leoaviana/DynamicCamLK) WoWCamera program with it's command line argument making sure to close whenever the first detected game process finishes:
+   ```
+   WoWmapperX.exe -nogui -noconsole -rg:C\\WoWCamera.exe,(-n:CustomWoW.exe) -dterm
    ```
 
 ### My game process is not detected automatically by WoWmapperX
@@ -90,9 +94,9 @@ To change your controller layout, open the WoWmapper configuration and select *K
 
 If you make any changes to the controller layout or bindings, you must type `/reload` in-game or restart World of Warcraft for the changes to take effect.
 
-## Non-Windows systems and WoWmapper alternatives
+## Non-Windows systems and WoWmapperX alternatives
 
-If you're not running Windows, or WoWmapper isn't suitable for your setup, there are several alternatives available. These alternatives only provide base input mapping - no advanced features or haptic feedback.
+If you're not running Windows, or WoWmapperX isn't suitable for your setup, there are several alternatives available. These alternatives will probably provide only base input mapping - no advanced features or haptic feedback.
 
 ### Linux
 - AntiMicroX
@@ -107,6 +111,7 @@ If you're not running Windows, or WoWmapper isn't suitable for your setup, there
 
 ### Windows alternatives
 
+- [WoWmapper](https://github.com/topher-au/WoWmapper)
 - DS4Windows
 - Xpadder
 - JoyToKey
