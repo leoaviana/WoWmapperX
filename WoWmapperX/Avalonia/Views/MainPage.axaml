@@ -58,22 +58,16 @@
                     HorizontalAlignment="Left">
           <Separator Height="10" />
           <TextBlock Width="200"
-                     Margin="2"
+                     Margin="0,52,0,0"
                      TextAlignment="Center"
                      TextWrapping="Wrap">
             Thank you for using WoWmapperX!
           </TextBlock>
-          <TextBlock Width="200"
-                     Margin="5"
-                     TextAlignment="Center"
-                     TextWrapping="Wrap">
-            If you like it, please consider making a donation.
-          </TextBlock>
           <Image Name="DonateButton"
                  Width="130"
-                 HorizontalAlignment="Center"
-                 Cursor="Hand"
-                 Source="/Resources/donate.png" />
+				 Height="72"
+                 HorizontalAlignment="Center" 
+                 Tapped="TextUpdateLink1_Click"  />
 		    <TextBlock Name="TextVersion"
 					  HorizontalAlignment="Center"
 					  VerticalAlignment="Bottom"

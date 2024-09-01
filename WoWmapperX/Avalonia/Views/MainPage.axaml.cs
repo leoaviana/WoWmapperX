@@ -112,7 +112,7 @@ namespace WoWmapperX.AvaloniaViews
 
         public void TextUpdateLink1_Click(object sender, TappedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo("https://github.com/leoaviana/WoWmapper/releases") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://github.com/leoaviana/WoWmapperX/releases") { UseShellExecute = true });
         }
     }
 }
