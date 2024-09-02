@@ -26,6 +26,8 @@ WoWmapperX has some differences compared to WoWmapper, which are:
 
 **Before you download WoWmapperX, please ensure that you meet the requirements for running the application.**
 
+You can download the latest version of WoWmapperX in the [releases page](https://github.com/leoaviana/WoWmapperX/releases/latest)
+
 ### Command line arguments
 
 WoWmapperX can be opened with some command line arguments if desired. the commands available are:
