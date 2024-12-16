@@ -11,7 +11,7 @@ It's primary purpose is to handle DualShock 4 or Xbox/Xinput controller input an
 
 WoWmapperX has some differences compared to WoWmapper, which are:
 
-1. Updated project to use .NET 8 and newer (currently using .NET 9 beta for 32bit [NativeAOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) support.)
+1. Updated project to use .NET 8 and newer (currently using .NET 9 for 32bit [NativeAOT](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/) support.)
 2. Migrated from [WPF UI](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/) to [AvaloniaUI](https://avaloniaui.net/) to be able to execute under Wine on Linux. Seems to run fine but needs more testing.
 3. Updated DS4Library to a newer version to increase controller compatibility (in theory, DualSense, Switch Pro Controller, DualShock 3 should work now, but I have not tested them.)
 4. Reimplemented some memory reading functions used on older WoWmapper versions to improve the user experience. (only for 3.3.5a client)
