@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <PublishTrimmed>true</PublishTrimmed>
+	  <PublishSingleFile>true</PublishSingleFile>
+	  <PublishAot>true</PublishAot>
+	  <Platforms>AnyCPU;x64;x86</Platforms>
+	  <Configurations>Debug;Release;Release-AOT;Release-Bundled</Configurations>
+	  <AssemblyName>WoWmapperX_Updater</AssemblyName>
+  </PropertyGroup>
+	
+	
+	<!-- Target to trigger Publish after Build for Release configuration -->
+	<Target Name="BuildAndPublishN" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+		<Message Importance="high" Text="Publishing Release..." />
+		<Exec Command="dotnet publish &quot;$(MSBuildProjectDirectory)\$(MSBuildProjectFile)&quot; -c Release -r win-x86 --no-self-contained -p:PublishSingleFile=true -o &quot;$(SolutionDir)\Build\Publish\Release-NORMAL&quot;" />
+	</Target>
+
+	<!-- Target to trigger Publish after Build for x86 No AOT self contained configuration -->
+	<Target Name="BuildAndPublishB" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release-Bundled|x86'">
+		<Message Importance="high" Text="Publishing for x86 Bundled NO AOT..." />
+		<Exec Command="dotnet publish &quot;$(MSBuildProjectDirectory)\$(MSBuildProjectFile)&quot; -c Release-Bundled -r win-x86 --self-contained -p:PublishTrimmed=true -p:PublishSingleFile=true -o &quot;$(SolutionDir)\Build\Publish\Release-Bundled&quot;" />
+	</Target>
+
+	<!-- Target to trigger Publish after Build for x86-AOT configuration -->
+	<Target Name="BuildAndPublishA" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release-AOT|x86'">
+		<Message Importance="high" Text="Publishing for x86-AOT..." />
+		<Exec Command="dotnet publish &quot;$(MSBuildProjectDirectory)\$(MSBuildProjectFile)&quot; -c Release-AOT -r win-x86 --self-contained -p:PublishTrimmed=true -p:PublishAot=true -o &quot;$(SolutionDir)\Build\Publish\Release-AOT&quot;" />
+	</Target>
+
+
+</Project>

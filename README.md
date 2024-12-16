@@ -26,6 +26,8 @@ WoWmapperX has some differences compared to WoWmapper, which are:
 
 **Before you download WoWmapperX, please ensure that you meet the requirements for running the application.**
 
+You can download the latest version of WoWmapperX in the [releases page](https://github.com/leoaviana/WoWmapperX/releases/latest)
+
 ### Command line arguments
 
 WoWmapperX can be opened with some command line arguments if desired. the commands available are:
@@ -54,8 +56,14 @@ Examples:<br/>
    WoWmapperX.exe -nogui -noconsole -rg:C\\WoWCamera.exe,(-n:CustomWoW.exe) -dterm
    ```
 
-### My game process is not detected automatically by WoWmapperX
-The only way your game is not detected by WoWmapperX when you launch it is if it has a different process name, you can add a different process name into your settings.json  which is generated the first time you launch WoWmapperX. by opening it with a text editor you'll see this part:
+### My game process is not detected automatically by WoWmapperX or controller is not working inside game window.
+
+If you can't input anything in your game window, that's probably because it has been started with different user privileges than WoWmapperX, If you are using a launcher that requires administrator privileges, that is what is causing the issue. You have two options:
+
+1. Run WoWmapperX as administrator.
+2. Launch the game normally via it's executable with no administator privileges.
+
+If the game process is not detected by WoWmapperX to use memory reading or direct hardware input, that's probably because it has a different process name, you can add a different process name into your settings.json  which is generated the first time you launch WoWmapperX. by opening it with a text editor you'll see this part:
 ```
 "GameProcessNames": [
     "wow",
@@ -63,7 +71,8 @@ The only way your game is not detected by WoWmapperX when you launch it is if it
     "wowt",
     "wowt-64",
     "wowb",
-    "wowb-64"
+    "wowb-64",
+    "ascension"
   ]
 ```
 here you can add extra names that you game process might have, please add them in lowercase.
@@ -78,19 +87,19 @@ C:\\Users\\yourUser\\AppData\\Roaming\\WoWmapperX\\settings.json
 
 I've tested it some time ago using Wine 8.0 on Manjaro, the application launches and the controller mapping feature worked fine (using a xinput compatible controller). I have not tested it since then but I suppose it should work but if it does not work there are some linux alternatives.<br/>
 
-However if you're trying using it on Android with Winlator or any Termux/Box64 based wine installation it will not work, the application just crashes and there is no useful log or exception information.
+However if you're trying using it on Android with Winlator or any Termux/Box64 based wine installation it may not work, but you also have alternatives.
 
 ### How much effort is required to get it set up?
  
-WoWmapper and ConsolePort are designed to work together to make the installation as simple as possible. Once ConsolePort and WoWmapper are installed, launching World of Warcraft will export a keybinding configuration file to the ConsolePort folder that will be loaded while ConsolePort is active, meaning that ConsolePort will not need to be calibrated in-game, and when you disable ConsolePort, your regular bindings are preserved underneath allowing you to easily switch between keyboard and mouse or controller gameplay simply by toggling the ConsolePort addon and reloading the user interface.
+WoWmapperX and ConsolePort are designed to work together to make the installation as simple as possible. Once ConsolePort and WoWmapperX are installed, launching World of Warcraft will export a keybinding configuration file to the ConsolePort folder that will be loaded while ConsolePort is active, meaning that ConsolePort will not need to be calibrated in-game, and when you disable ConsolePort, your regular bindings are preserved underneath allowing you to easily switch between keyboard and mouse or controller gameplay simply by toggling the ConsolePort addon and reloading the user interface.
 
 ### Configuration instructions
 
-**WoWmapper features an automatic configuration system that will set up your keybindings and icons in-game without any input. We recommend leaving WoWmapper's keybindings as their defaults and only changing the modifier layout.**
+**WoWmapper features an automatic configuration system that will set up your keybindings and icons in-game without any input. We recommend leaving WoWmapperX's keybindings as their defaults and only changing the modifier layout.**
 
-By default, temporary keybindings will be exported to ConsolePort that will not make any permanent changes to your standard keybindings. These bindings are controlled by ConsolePort and you can switch from controller to keyboard and mouse by simply disabling ConsolePort, and back again by re-enabling it. Additionally, WoWmapper will configure the button icons within ConsolePort to match the currently connected controller.
+By default, temporary keybindings will be exported to ConsolePort that will not make any permanent changes to your standard keybindings. These bindings are controlled by ConsolePort and you can switch from controller to keyboard and mouse by simply disabling ConsolePort, and back again by re-enabling it. Additionally, WoWmapperX will configure the button icons within ConsolePort to match the currently connected controller.
 
-To change your controller layout, open the WoWmapper configuration and select *Key Bindings*. From here you can change which of the shoulder buttons will be used as modifiers, and select which button icons will be shown in WoWmapper and ConsolePort. Additionally, you may override the default WoWmapper bindings (this is not recommended).
+To change your controller layout, open the WoWmapperX configuration and select *Key Bindings*. From here you can change which of the shoulder buttons will be used as modifiers, and select which button icons will be shown in WoWmapperX and ConsolePort. Additionally, you may override the default WoWmapperX bindings (this is not recommended).
 
 If you make any changes to the controller layout or bindings, you must type `/reload` in-game or restart World of Warcraft for the changes to take effect.
 

@@ -1,17 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <ApplicationIcon>wowmapper.ico</ApplicationIcon>
 	<Platforms>AnyCPU;x64;x86</Platforms>
 	<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	<Configurations>Debug;Release;Release-AOT;Release-Bundled</Configurations>
   </PropertyGroup>
 	<PropertyGroup>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
+		<Version>1.1.0</Version>
 	</PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Bundled|AnyCPU'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AOT|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
@@ -20,8 +32,50 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+	<DefineConstants>BUILD_NOAOT_NET</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Bundled|x86'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+	<DefineConstants>BUILD_NOAOT</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AOT|x86'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+	<DefineConstants>BUILD_NATIVEAOT</DefineConstants> 
+  </PropertyGroup>
+	
+	<!-- Target to trigger Publish after Build for Release configuration -->
+	<Target Name="BuildAndPublishN" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+		<Message Importance="high" Text="Publishing Release..." />
+		<Exec Command="dotnet publish &quot;$(MSBuildProjectDirectory)\$(MSBuildProjectFile)&quot; -c Release -r win-x86 --no-self-contained -p:PublishSingleFile=true -o &quot;$(SolutionDir)\Build\Publish\Release-NORMAL&quot;" />
+	</Target>
+
+	<!-- Target to trigger Publish after Build for x86 No AOT self contained configuration -->
+	<Target Name="BuildAndPublishB" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release-Bundled|x86'">
+		<Message Importance="high" Text="Publishing for x86 Bundled NO AOT..." />
+		<Exec Command="dotnet publish &quot;$(MSBuildProjectDirectory)\$(MSBuildProjectFile)&quot; -c Release-Bundled -r win-x86 --self-contained -p:PublishTrimmed=true -p:PublishSingleFile=true -o &quot;$(SolutionDir)\Build\Publish\Release-Bundled&quot;" />
+	</Target>
+
+	<!-- Target to trigger Publish after Build for x86-AOT configuration -->
+	<Target Name="BuildAndPublishA" AfterTargets="Build" Condition="'$(Configuration)|$(Platform)'=='Release-AOT|x86'">
+		<Message Importance="high" Text="Publishing for x86-AOT..." />
+		<Exec Command="dotnet publish &quot;$(MSBuildProjectDirectory)\$(MSBuildProjectFile)&quot; -c Release-AOT -r win-x86 --self-contained -p:PublishTrimmed=true -p:PublishAot=true -o &quot;$(SolutionDir)\Build\Publish\Release-AOT&quot;" />
+	</Target>
+	
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Bundled|x64'">
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-AOT|x64'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>

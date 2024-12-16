@@ -17,14 +17,39 @@ using WoWmapperX.WoWInfoReader;
 using WoWmapperX.AvaloniaImpl;
 using System.Diagnostics;
 using WoWmapperX.Controllers.DS4;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
+using DynamicData; 
 
 namespace WoWmapperX.AvaloniaViews
 {
     public partial class MainPage : UserControl
     {
         #region "Main Window Stuff"   
-        public readonly Timer _uiTimer = new Timer { AutoReset = true, Interval = 1000 }; 
+        public readonly Timer _uiTimer = new Timer { AutoReset = true, Interval = 1000 };
 
+
+        #endregion
+
+        #region "Updater Stuff"
+        public static string GetCurrentBuildType()
+        {
+#if BUILD_NATIVEAOT
+        return "wowmapperx-x86-aot.zip";
+#elif BUILD_NOAOT
+        return "wowmapperx-x86-noaot.zip";
+#else
+            return "wowmapperx-x86-noaot-net.zip";
+#endif
+        }
+
+        private static readonly HttpClient _httpClient = new HttpClient
+        {
+            DefaultRequestHeaders = { { "User-Agent", "WoWmapperX" } }
+        };
+
+        private UpdateRelease _latest = null;
 
         #endregion
 
@@ -32,8 +57,7 @@ namespace WoWmapperX.AvaloniaViews
         {
             InitializeComponent();
             InitializeMainWindow();
-        }
-
+        } 
 
         private void InitializeMainWindow()
         {
@@ -46,8 +70,76 @@ namespace WoWmapperX.AvaloniaViews
             _uiTimer.Elapsed += UiTimer_Elapsed;
             _uiTimer.Start();
 
+            CheckForUpdates(); 
+
         }
 
+        public async void CheckForUpdates()
+        {
+            string apiUrl = $"https://api.github.com/repos/leoaviana/WoWmapperX/releases/latest";
+
+            try
+            {
+                // Fetch latest release info
+                string jsonResponse = await _httpClient.GetStringAsync(apiUrl);
+                using var document = JsonDocument.Parse(jsonResponse);
+                var root = document.RootElement;
+
+                string latestVersion = root.GetProperty("tag_name").GetString();
+                string releaseName = root.GetProperty("name").GetString();
+                string releaseNotes = root.GetProperty("body").GetString();
+
+                Version version = new(Assembly.GetExecutingAssembly().GetName().Version.ToString(3)); 
+                Version latest = new(latestVersion);
+
+                if (latest > version)
+                {
+                    Log.WriteLine($"New version found. Current: {version.ToString(3)}, Latest: {latestVersion}");
+                    
+                    TextUpdateStatus1.Text = $"Version {latestVersion} is available now!";
+                    TextUpdateStatus1.Cursor = new Avalonia.Input.Cursor(StandardCursorType.Hand);
+                    TextUpdateStatus1.TextDecorations = TextDecorations.Underline;
+                    ImageUpdateIcon.Source = 
+                        new Bitmap(AssetLoader.Open(new Uri("avares://WoWmapperX/Resources/update-available.png"))); 
+
+                    foreach (var asset in root.GetProperty("assets").EnumerateArray())
+                    {
+                        string assetName = asset.GetProperty("name").GetString();
+                        string downloadUrl = asset.GetProperty("browser_download_url").GetString();
+
+                        if (assetName == GetCurrentBuildType())
+                        { 
+                            _latest = new UpdateRelease(releaseName, releaseNotes, assetName, latestVersion, downloadUrl);
+                            break;
+                        }
+
+                    }
+                }
+                else
+                {
+                    TextUpdateStatus1.Text = "You have the latest version.";
+                    ImageUpdateIcon.Source =
+                        new Bitmap(AssetLoader.Open(new Uri("avares://WoWmapperX/Resources/update-ok.png"))); 
+                } 
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLine($"Error checking for updates: {ex.Message}");
+                TextUpdateStatus1.Text = "Error checking for updates!";
+                ImageUpdateIcon.Source =
+                        new Bitmap(AssetLoader.Open(new Uri("avares://WoWmapperX/Resources/update-failed.png"))); 
+                ToolTip.SetTip(TextUpdateStatus1, ex.Message);
+            }
+        }
+
+
+        public void TextUpdateStatus1_Click(object sender, TappedEventArgs e)
+        {
+            if (_latest == null) return;
+            var updateForm = new UpdateWindow(_latest);
+
+            updateForm.ShowDialog(MainWindow.Instance);
+        }
 
         private void UiTimer_Elapsed(object sender, ElapsedEventArgs elapsedEventArgs)
         {
@@ -110,9 +202,24 @@ namespace WoWmapperX.AvaloniaViews
                 TextWoWStatus2.Text = "Memory reading is disabled";
         }
 
-        public void TextUpdateLink1_Click(object sender, TappedEventArgs e)
+        public void DonateButton_Click(object sender, TappedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://www.paypal.com/donate/?hosted_button_id=CSQHQU3DNCRYU") { UseShellExecute = true });
+        }
+
+        public void GitLink_Click(object sender, TappedEventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://github.com/leoaviana/WoWmapperX/releases") { UseShellExecute = true });
         }
+
+        public void DonateButton_ImageReaction(object sender, PointerEventArgs e)
+        {
+            if (e.RoutedEvent.Name == "PointerEntered") 
+                DonateButton.Source = new Bitmap(AssetLoader.Open(new Uri("avares://WoWmapperX/Resources/donate-hover.png")));
+            else
+                DonateButton.Source = new Bitmap(AssetLoader.Open(new Uri("avares://WoWmapperX/Resources/donate.png")));
+
+
+        } 
     }
 }

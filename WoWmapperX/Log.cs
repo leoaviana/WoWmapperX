@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using WoWmapperX.AvaloniaImpl;
+using System.Diagnostics;
 
 namespace WoWmapperX
 {
@@ -38,6 +39,7 @@ namespace WoWmapperX
             }
 
             Console.WriteLine($"[{DateTime.Now.ToString("T")}] {text}", args);
+            Debug.WriteLine($"[{DateTime.Now.ToString("T")}] {text}", args);
         }
         public static void WriteLine(string text, bool useDateTime = true, params string[] args)
         {
@@ -52,9 +54,15 @@ namespace WoWmapperX
             }
 
             if (useDateTime)
+            {
                 Console.WriteLine($"[{DateTime.Now.ToString("T")}] {text}", args);
+                Debug.WriteLine($"[{DateTime.Now.ToString("T")}] {text}", args);
+            }
             else
+            {
                 Console.WriteLine(text, args);
+                Debug.WriteLine(text, args);
+            }
 
         }
     }

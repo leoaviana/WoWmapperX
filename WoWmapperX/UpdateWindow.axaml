@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WoWmapperX.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:maincomp="clr-namespace:WoWmapperX.AvaloniaViews;assembly=WoWmapperX"
+        mc:Ignorable="d" Width="400" Height="400" d:DesignWidth="400" d:DesignHeight="400"
+        x:Class="WoWmapperX.UpdateWindow"
+        Icon="/Resources/wowmapper.ico"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        CanResize="False"
+        Title="UPDATE">
+
+	<DockPanel HorizontalAlignment="Stretch"
+			   VerticalAlignment="Stretch"
+			   Name="ContentWrapper">
+		<maincomp:TitleBar x:Name="TitleBar" IsSeamless="False"></maincomp:TitleBar>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30" />
+			<RowDefinition />
+			<RowDefinition Height="40" />
+		</Grid.RowDefinitions>
+		<TextBlock Name="TextReleaseTitle"
+                   Grid.Row="0"
+                   Margin="10,5"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Text="Release Title Here" />
+		<TextBox Name="TextReleaseNotes"
+                 Grid.Row="1"
+                 Margin="5,0"
+                 IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" />
+		<DockPanel Name="PanelButton" Grid.Row="2">
+			<Button Name="ButtonDownload"
+                    Margin="5" 
+                    Content="Download Now" 
+					Tapped="ButtonDownload_Click"/>
+		</DockPanel>
+		<Grid Name="GridProgress"
+              Grid.Row="2"
+              IsVisible="False">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition />
+				<ColumnDefinition Width="100" />
+			</Grid.ColumnDefinitions>
+			<StackPanel Margin="5,0,0,0" VerticalAlignment="Center">
+				<TextBlock Margin="0,0,0,2" Text="Download in progress..." />
+				<ProgressBar Name="ProgressDownload" />
+			</StackPanel>
+			<Button Grid.Column="1"
+                    Margin="5" 
+                    Content="Cancel"
+					Tapped="ButtonCancel_Click"/>
+		</Grid>
+	</Grid>
+	</DockPanel>
+</Window>

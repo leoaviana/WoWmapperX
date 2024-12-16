@@ -76,7 +76,7 @@ namespace WoWmapperX.AvaloniaImpl
         private static readonly Dictionary<string, object> DefaultValues = new()
         {
             { nameof(DisableDonationButton), false },
-            { nameof(RunInBackground), true },
+            { nameof(RunInBackground), false },
             { nameof(AutoUpdate), false },
             { nameof(SettingsVersion), "0.0.0.0" },
             { nameof(AppTheme), "Dark" },
@@ -123,7 +123,7 @@ namespace WoWmapperX.AvaloniaImpl
             { nameof(XinputDll), 0 },
             { nameof(MemoryInvertTurn), false },
             { nameof(MemoryOverrideLogin), true },
-            { nameof(GameProcessNames), (new[] {"wow", "wow-64", "wowt", "wowt-64", "wowb", "wowb-64"}).ToList() }
+            { nameof(GameProcessNames), (new[] {"wow", "wow-64", "wowt", "wowt-64", "wowb", "wowb-64", "ascension"}).ToList() }
         };
 
         #region "Properties"

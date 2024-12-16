@@ -11,8 +11,8 @@
     <StackPanel Margin="5,0">
       <TextBlock FontSize="16" Text="Overlay" />
       <Separator Height="5" />
-      <TextBlock Name="FeatureText" Margin="5,0,5,5"
-                 FontWeight="SemiBold"
+      <TextBlock Name="FeatureText" Margin="5,0,5,5" 
+                 FontWeight="Bold"
                  TextWrapping="Wrap">
         This feature will only work when playing in windowed and windowed fullscreen modes.
       </TextBlock>
