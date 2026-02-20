@@ -1,6 +1,6 @@
 # ⚠️ ARCHIVED & DEPRECATED
 
-This project is no longer maintained. It has been succeeded by WoWpadX.
+This project is no longer maintained. It has been succeeded by [WoWpadX](https://github.com/leoaviana/WoWpadX).
 
 WoWmapperX (the .NET version) has been deprecated in favor of a complete C++ rewrite. [WoWpadX](https://github.com/leoaviana/WoWpadX) offers better performance, native SDL3 controller support, 16 way movement control, and the new Pixel Bridge system instead of Memory reading for a safer experience.
 
